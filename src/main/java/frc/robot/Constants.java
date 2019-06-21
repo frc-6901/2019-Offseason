@@ -24,13 +24,13 @@ public class Constants {
   public static final int kLeftDriveSlave = 2;
 
   //Victor motors (intakes)
-  public static final int kCargoIntakeLeft = 0;
-  public static final int kCargoIntakeRight = 1;
+  public static final int kCargoIntakeLeft = 3;
+  public static final int kCargoIntakeRight = 10;
   public static final int kPanelIntake=5;
   //Lift
-  public static final int kLiftMaster = 3; 
+  public static final int kLiftMaster = 4; 
   public static final int kLiftSlave = 4;
-  public static final int kWrist = 4;
+  public static final int kWrist = 3;
   //Xbox Controlller Ports
   public static final int kXbox1 = 0;
   public static final int kXbox2 = 1;
@@ -51,6 +51,7 @@ public class Constants {
   public static final int kBallPosition1 = 500;
   public static final int kBallPosition2 = 1300;
   public static final int kBallPosition3 = 2750;
+  public static final int kCargoship = 0;
   public static final int kHatchPosition1 = -3150;
   public static final int kHatchPosition2 = -12000;
   public static final int kHatchPosition3 = -20700;
@@ -59,6 +60,14 @@ public class Constants {
   //Wrist Positions
   public static final int kWristUp = -500;
   public static final int kWristScore =0;
+  public static final int kWristCargoShip =0;
+  public static final int kWristRocket = 0;
+
+  //Limelight
+  public static final double kTargetAreaFar = 0;
+  public static final double kTargetAreaMedium = 0;
+  public static final double kTargetAreaClose = 0;
+  public static final double kLimelightErrorThreshold =0;
 
   /**Robot PIDF,Motion Magic, and Adjustment Values */
 
@@ -78,26 +87,14 @@ public class Constants {
   public static final double kWristKd = 100;
   public static final double kWristKf = 5;
 
-  //Limelight values
-  public static String limeLightKey = "limelight";
-  public static String targetXKey = "tx";
-  public static String targetYKey= "ty";
-  public static String targetAreaKey = "ta";
-  public static String camModeKey = "pipeline";
-  public static String ledModeKey = "ledMode";
-
   //Limelight PID
-  public static double visionPNear = .8;
-  public static double visionPMedium = .8;
-  public static double visionPFar = .8;
-  public static double visionI = 0;
-  public static double visionD = 0;
-  public static double areaThreshholdNear = 0;
-  public static double areaThresholdMedium = 0;
-  public static double minSpeedTurn = .4;
-  public static double minSpeedForward =0.45;
-  public static double maxSpeed = 1;
-  public static double visionAreaP = 0.1;
+  public static double kVisionPNear = .8;
+  public static double kVisionPMedium = .8;
+  public static double kVisionPFar = .8;
+  public static double kMinSpeedTurn = .4;
+  //public static double minSpeedForward =0.45;
+  //public static double maxSpeed = 1;
+  //public static double visionAreaP = 0.1;
   //DriveTrain Speed Modifiers
   public static double turnDampen = .9;
   public static double turnDefault = .6;

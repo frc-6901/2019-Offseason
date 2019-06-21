@@ -5,10 +5,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.networktables.NetworkTableEntry;
+//import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants;
 //import frc.robot.OI;p
@@ -74,6 +72,7 @@ public class Lift extends Subsystem
         PANEL1(Constants.kHatchPosition1),
         PANEL2(Constants.kHatchPosition2),
         PANEL3(Constants.kHatchPosition3),
+        CARGOSHIP(Constants.kCargoship),
         RESET(-1),
         OPENLOOP(-1);
 
@@ -138,25 +137,26 @@ public class Lift extends Subsystem
             case RESET:
             if(!(positionChecker(aimedPosition))&& getEncoderValue()>=600) 
             {
-                mLiftMaster.set(ControlMode.PercentOutput,-.6);
-                currentPosition = aimedPosition;
+                mLiftMaster.set(ControlMode.PercentOutput,-.1);
+                
             }
             else if(!(positionChecker(aimedPosition))&& getEncoderValue()<600)
             {
-                mLiftMaster.set(ControlMode.PercentOutput,-.2);
-                currentPosition= aimedPosition;
+                mLiftMaster.set(ControlMode.PercentOutput,-.1);
+                
             }
             else
             {
                 mLiftMaster.set(ControlMode.PercentOutput,0);
                 resetEncoder();
+                currentPosition=aimedPosition;
             }
             break;
             default:
             if(!(positionChecker(aimedPosition))) 
             {
                 setPosition(aimedPosition.encoderValue);
-                currentPosition = aimedPosition;
+                
             }
             else
             {

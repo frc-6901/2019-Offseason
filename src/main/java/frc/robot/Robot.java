@@ -11,13 +11,16 @@ import java.util.Arrays;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+//import edu.wpi.first.wpilibj.command.Command;
+//import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.loops.Looper;
+import frc.robot.subsystems.CargoIntake;
+import frc.robot.subsystems.CargoIntake.CargoIntakeState;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Lift;
 import frc.robot.subsystems.Wrist;
@@ -34,14 +37,15 @@ import frc.robot.subsystems.Wrist.WristPosition;
  */
 public class Robot extends TimedRobot {
   //public static ExampleSubsystem m_subsystem = new ExampleSubsystem();
-  private ShuffleboardTab tab = Shuffleboard.getTab("Lift");
+  private ShuffleboardTab tab = Shuffleboard.getTab("Lift/Wrisy");
   private Wrist mWrist = Wrist.getInstance();
   private OI m_oi = OI.getInstance();
   private Lift mLift = Lift.getInstance();
+  private CargoIntake mCargoIntake = CargoIntake.getInstance();
   private Looper mEnabledLooper = new Looper();
   private Looper mDisabledLooper = new Looper();
   private DriveTrain drive = DriveTrain.getInstance();
-  private final SubsystemManager mSubsystemManager = new SubsystemManager(Arrays.asList(DriveTrain.getInstance(),Lift.getInstance()));
+  private final SubsystemManager mSubsystemManager = new SubsystemManager(Arrays.asList(DriveTrain.getInstance(),Lift.getInstance(),Wrist.getInstance()));
   private NetworkTableEntry LiftP;
   private NetworkTableEntry LiftI;
   private NetworkTableEntry LiftD;
@@ -62,40 +66,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotInit() {
+    LiveWindow.disableAllTelemetry();
+		LiveWindow.setEnabled(false);
     //m_oi = OI.getInstance();
-    LiftP =
-      tab.add("LiftP", 1)
-         .getEntry();
-  LiftI =
-      tab.add("LiftI", 1)
-         .getEntry();
-  LiftD =
-      tab.add("LiftD", 1)
-         .getEntry();
-  
-   LiftF =
-      tab.add("LiftF", 1)
-         .getEntry();
-  LiftAccel =
-      tab.add("Lift Acceleration", 1)
-         .getEntry();
-         
-   WristP =
-      tab.add("WristP", 1)
-         .getEntry();     
-  WristI =
-      tab.add("WristI", 1)
-         .getEntry();
-  WristD =
-      tab.add("WristD", 1)
-         .getEntry();
-  
-   WristF =
-      tab.add("WristF", 1)
-         .getEntry();
-  WristAccel =
-      tab.add("WristAcceleration", 1)
-         .getEntry();
+
+    
     mSubsystemManager.registerEnabledLoops(mEnabledLooper);
     mSubsystemManager.registerDisabledLoops(mDisabledLooper);
 
@@ -195,17 +170,41 @@ public class Robot extends TimedRobot {
   @Override
   public void testInit()
   {
-    mLift.resetEncoder();
     mDisabledLooper.stop();
     mEnabledLooper.start();
+
+    LiftP =tab.add("LiftP", 1).getEntry();
+    LiftI =tab.add("LiftI", 1).getEntry();
+    LiftD =tab.add("LiftD", 1).getEntry();
+
+    LiftF =tab.add("LiftF", 1).getEntry();
+    LiftAccel =tab.add("Lift Acceleration", 1).getEntry();
+       
+    WristP =tab.add("WristP", 1).getEntry();     
+    WristI =tab.add("WristI", 1).getEntry();
+    WristD =tab.add("WristD", 1).getEntry();
+    WristF =tab.add("WristF", 1).getEntry();
+    WristAccel =tab.add("WristAcceleration", 1).getEntry();
+
+    
+    
     mWrist.setState(WristPosition.OPENLOOP);
+    double wristP = WristP.getDouble(Constants.kWristKp);
+    double wristI = WristI.getDouble(Constants.kWristKi);
+    double wristD = WristD.getDouble(Constants.kWristKd);
+    double wristF = WristF.getDouble(Constants.kWristKf);
+    int wristAcceleration = (int) WristAccel.getDouble(Constants.kWristAcceleration);
+    mWrist.updateWristMotionMagic(wristP,wristI, wristD, wristF,wristAcceleration);
+    
+    //mLift.resetEncoder();
     mLift.setState(LiftPosition.OPENLOOP);
-    //double p = LiftP.getDouble(Constants.kLiftKp);
-    //double i = LiftI.getDouble(Constants.kLiftKi);
-    //double d = LiftD.getDouble(Constants.kLiftKd);
-    //double f = LiftF.getDouble(Constants.kLiftKf);
-    //int acceleration = (int) LiftAccel.getDouble(Constants.kLiftAcceleration);
-    //mLift.setMotionMagicValues(p, i, d, f,acceleration);
+    double p = LiftP.getDouble(Constants.kLiftKp);
+    double i = LiftI.getDouble(Constants.kLiftKi);
+    double d = LiftD.getDouble(Constants.kLiftKd);
+    double f = LiftF.getDouble(Constants.kLiftKf);
+    int liftAcceleration = (int) LiftAccel.getDouble(Constants.kLiftAcceleration);
+    mLift.setMotionMagicValues(p, i, d, f,liftAcceleration);
+  
   }
   /**
    * This function is called periodically during test mode.
@@ -214,32 +213,48 @@ public class Robot extends TimedRobot {
   @Override
   public void testPeriodic() {
     //SmartDashboard.putNumber("EncoderValue", mLift.getEncoderValue());
-    if(m_oi.controller2AButton())
-    {
-      mLift.setState(LiftPosition.CARGO1);
-    }
-    else if(m_oi.controller2BButton())
-    {
-      mLift.setState(LiftPosition.CARGO2);
-    }
-    else if(m_oi.controller2YButton())
-    {
-      mLift.setState(LiftPosition.CARGO3);
-    }
-    else if(m_oi.controller2XButton())
-    {
-      mLift.setState(LiftPosition.RESET);
-    }
-    else if (Math.abs(m_oi.controller2LeftJoystickY())>0) 
-    {
-    mLift.setState(LiftPosition.OPENLOOP);
+    // if(m_oi.controller2AButton())
+    // {
+    //   mLift.setState(LiftPosition.CARGO1);
+    // }
+    // else if(m_oi.controller2BButton())
+    // {
+    //   mLift.setState(LiftPosition.CARGO2);
+    // }
+    // else if(m_oi.controller2YButton())
+    // {
+    //   mLift.setState(LiftPosition.CARGO3);
+    // }
+    // else if(m_oi.controller2XButton())
+    // {
+    //   mLift.setState(LiftPosition.RESET);
+    // }
+    // else if (Math.abs(m_oi.controller2LeftJoystickY())>0) 
+    // {
+    // mLift.setState(LiftPosition.OPENLOOP);
     
     
-    }
-    mLift.setPercentOutput(m_oi.controller2LeftJoystickY());
-    mLift.runLift();
+    // }
+    // mLift.setPercentOutput(m_oi.controller2LeftJoystickY());
+    // mLift.runLift();
+    // if(m_oi.controller2LeftBumper())
+    // {
+    //   mCargoIntake.setCargoIntakeMode(CargoIntakeState.BALLIN);
+    // }
+    // else if(m_oi.controller2RightBumper())
+    // {
+    //   mCargoIntake.setCargoIntakeMode(CargoIntakeState.BALLOUT);
+    // }
+    // else
+    // {
+    //   mCargoIntake.setCargoIntakeMode(CargoIntakeState.NEUTRAL);
+    // }
+    mCargoIntake.runCargoIntake();
+    mWrist.setPercentOutput(m_oi.controller2RightJoystickY());
+    mWrist.runWrist();
+    //System.out.println(mWrist.getWristPos());
     //System.out.println(m_oi.controller1LeftTrigger());
-    drive.drive(m_oi.controller1LeftJoystickY(),m_oi.controller1RightJoystickX(),m_oi.controller1LeftTrigger(),m_oi.controller1RightTrigger());
+    //drive.drive(m_oi.controller1LeftJoystickY(),m_oi.controller1RightJoystickX(),m_oi.controller1LeftTrigger(),m_oi.controller1RightTrigger());
     //mWrist.setPercentOutput(m_oi.controller2RightJoystickY());
     //mWrist.runWrist();
     

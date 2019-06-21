@@ -169,7 +169,7 @@ public class OI {
   }
   public double controller2RightJoystickY()
   {
-    return joystickValue(controller2.getY(Hand.kRight));
+    return -joystickValue(controller2.getY(Hand.kRight));
   }
   public double controller2LeftJoystickX()
   {

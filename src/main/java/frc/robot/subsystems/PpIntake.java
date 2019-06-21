@@ -9,7 +9,7 @@ public class PpIntake
 {
     private VictorSPX mPpIntakeMotor = new VictorSPX(Constants.kPanelIntake);
     private static PpIntake mPpIntake;
-    private PpIntakeState mPpIntakeState =PpIntakeState.STOPPED;
+    private PpIntakeState mPpIntakeState =PpIntakeState.NEUTRAL;
     public synchronized static PpIntake getInstance()
     {
         if(mPpIntake==null)
@@ -22,8 +22,7 @@ public class PpIntake
     {
         PANELIN,
         PANELOUT,
-        NEUTRAL,
-        STOPPED
+        NEUTRAL
     }
     public void runPanelIntake()
     {
@@ -39,9 +38,7 @@ public class PpIntake
             case NEUTRAL:
             kPpIntakePower = -.3;
             break;
-            case STOPPED:
-            kPpIntakePower =0;
-            break;
+            
 
         }
         mPpIntakeMotor.set(ControlMode.PercentOutput,kPpIntakePower);
