@@ -21,7 +21,7 @@ public class Lift extends Subsystem
 
     private final TalonSRX mLiftMaster;
     private final VictorSPX mLiftSlave;
-    private final DigitalInput mLiftLimitSwitch = new DigitalInput(Constants.kLimitSwitch1);
+    private final DigitalInput mLiftLimitSwitch = new DigitalInput(Constants.kLimitSwitchWrist);
     private static Lift mInstance = null;
     //private OI mControllers = OI.getInstance();
     private double percentOutput = 0;

@@ -31,12 +31,19 @@ public class Constants {
   public static final int kLiftMaster = 4; 
   public static final int kLiftSlave = 4;
   public static final int kWrist = 3;
+  //Climb
+  public static final int kClimbMaster =0;
+  public static final int kClimbSlave1 =0;
+  public static final int kClimbSlave2 = 0;
+  public static final int kClimbSlave3 =0;
+  public static final int kVacuum =0;
   //Xbox Controlller Ports
   public static final int kXbox1 = 0;
   public static final int kXbox2 = 1;
   //limit switch
-  public static final int kLimitSwitch1 = 0;
-  public static final int kLimitSwitch2 = 1;
+  public static final int kLimitSwitchLift = 0;
+  public static final int kLimitSwitchWrist = 1;
+  public static final int KLimitSwitchClimber = 2;
 
   /*** Robot Scoring Mechanism Values***/
 
@@ -102,4 +109,14 @@ public class Constants {
   public static double forwardDampen = .7;
   public static double forwardDefault = .9;
   public static double forwardFullSpeed = 1;
+
+  //Climb Calues
+  public static final double kClimbP =0;
+  public static final double kClimbI =0;
+  public static final double kClimbD =0;
+  public static final double kClimbF =0;
+  public static final int kClimbVelocity =0;
+  public static final int kClimbAcceleration =0;
+  public static final double kClimbSuccDurationSeconds=3;
+  public static final int kClimbHeight =0;
 }
