@@ -1,0 +1,198 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 266338304 bytes for Failed to commit area from 0x00000000c0000000 to 0x00000000cfe00000 of length 266338304.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   The process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (t:/workspace/open/src/hotspot/os/windows/os_windows.cpp:3269), pid=101996, tid=195324
+#
+# JRE version:  (11.0.1+13) (build )
+# Java VM: OpenJDK 64-Bit Server VM (11.0.1+13, mixed mode, aot, sharing, tiered, compressed oops, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: --add-modules=ALL-SYSTEM --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED -Declipse.application=org.eclipse.jdt.ls.core.id1 -Dosgi.bundles.defaultStartLevel=4 -Declipse.product=org.eclipse.jdt.ls.core.product -Xverify:none -Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication C:\Users\Public\frc2019\vscode\data\extensions\redhat.java-0.35.0\server\plugins\org.eclipse.equinox.launcher_1.5.200.v20180922-1751.jar -configuration C:\Users\Public\frc2019\vscode\data\extensions\redhat.java-0.35.0\server\config_win -data c:\Users\Public\frc2019\vscode\data\user-data\User\workspaceStorage\1134f63d4c6ef5d1f1d9227178e85544\redhat.java\jdt_ws
+
+Host: Intel(R) Core(TM) i7-8565U CPU @ 1.80GHz, 8 cores, 15G,  Windows 10 , 64 bit Build 17134 (10.0.17134.753)
+Time: Fri May 24 05:00:48 2019 Central Daylight Time elapsed time: 0 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000027ceeff3800):  JavaThread "Unknown thread" [_thread_in_vm, id=195324, stack(0x00000085c9e00000,0x00000085c9f00000)]
+
+Stack: [0x00000085c9e00000,0x00000085c9f00000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x63ad9a]
+V  [jvm.dll+0x77851f]
+V  [jvm.dll+0x779b08]
+V  [jvm.dll+0x77a1c3]
+V  [jvm.dll+0x2624c8]
+V  [jvm.dll+0x63824a]
+V  [jvm.dll+0x62cb05]
+V  [jvm.dll+0x31561c]
+V  [jvm.dll+0x3154a2]
+V  [jvm.dll+0x31ad16]
+V  [jvm.dll+0x3671cf]
+V  [jvm.dll+0x366bf0]
+V  [jvm.dll+0x2f2358]
+V  [jvm.dll+0x2f34b6]
+V  [jvm.dll+0x7517c7]
+V  [jvm.dll+0x752f0f]
+V  [jvm.dll+0x373ff9]
+V  [jvm.dll+0x738049]
+V  [jvm.dll+0x3e357d]
+V  [jvm.dll+0x3e58e1]
+C  [java.exe+0x3603]
+C  [java.exe+0x1746c]
+C  [KERNEL32.DLL+0x14034]
+C  [ntdll.dll+0x73691]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x0000027cecde3a10, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+
+Other Threads:
+  0x0000027cef00c800 GCTaskThread "GC Thread#0" [stack: 0x00000085c9f00000,0x00000085ca000000] [id=109828]
+  0x0000027cef028800 ConcurrentGCThread "G1 Main Marker" [stack: 0x00000085ca000000,0x00000085ca100000] [id=119020]
+  0x0000027cef02a000 ConcurrentGCThread "G1 Conc#0" [stack: 0x00000085ca100000,0x00000085ca200000] [id=20060]
+
+[error occurred during error reporting (printing all threads), id 0xc0000005, EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x00007fffa80a0d17]
+
+VM state:not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x0000027ceeff2240] Heap_lock - owner thread: 0x0000027ceeff3800
+
+Heap address: 0x00000000c0000000, size: 1024 MB, Compressed Oops mode: Non-zero based: 0x00000000c0000000
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff63a6e0000 - 0x00007ff63a725000 	C:\Users\Public\frc2019\jdk\bin\java.exe
+0x00007ff811570000 - 0x00007ff811751000 	C:\Windows\SYSTEM32\ntdll.dll
+0x00007ff811380000 - 0x00007ff811431000 	C:\Windows\System32\KERNEL32.DLL
+0x00007ff80e0a0000 - 0x00007ff80e313000 	C:\Windows\System32\KERNELBASE.dll
+0x00007ff80eab0000 - 0x00007ff80ec40000 	C:\Windows\System32\USER32.dll
+0x00007ff80e590000 - 0x00007ff80e5b0000 	C:\Windows\System32\win32u.dll
+0x00007ff810d30000 - 0x00007ff810d58000 	C:\Windows\System32\GDI32.dll
+0x00007ff80e5b0000 - 0x00007ff80e742000 	C:\Windows\System32\gdi32full.dll
+0x00007ff80e900000 - 0x00007ff80e99f000 	C:\Windows\System32\msvcp_win.dll
+0x00007ff80e750000 - 0x00007ff80e848000 	C:\Windows\System32\ucrtbase.dll
+0x00007ffff53d0000 - 0x00007ffff5639000 	C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.17134.765_none_fb42a1a930655896\COMCTL32.dll
+0x00007ff80f4b0000 - 0x00007ff80f54e000 	C:\Windows\System32\msvcrt.dll
+0x00007ff80f180000 - 0x00007ff80f4a2000 	C:\Windows\System32\combase.dll
+0x00007ff80ed60000 - 0x00007ff80ee84000 	C:\Windows\System32\RPCRT4.dll
+0x00007ff80e320000 - 0x00007ff80e39a000 	C:\Windows\System32\bcryptPrimitives.dll
+0x00007ff811510000 - 0x00007ff81153d000 	C:\Windows\System32\IMM32.DLL
+0x00007fffe0a30000 - 0x00007fffe0a46000 	C:\Users\Public\frc2019\jdk\bin\vcruntime140.dll
+0x00007fffcd8d0000 - 0x00007fffcd96b000 	C:\Users\Public\frc2019\jdk\bin\msvcp140.dll
+0x00007fffa7da0000 - 0x00007fffa88e1000 	C:\Users\Public\frc2019\jdk\bin\server\jvm.dll
+0x00007ff80f6f0000 - 0x00007ff80f791000 	C:\Windows\System32\ADVAPI32.dll
+0x00007ff80ec60000 - 0x00007ff80ecbb000 	C:\Windows\System32\sechost.dll
+0x00007ff80ee90000 - 0x00007ff80ee98000 	C:\Windows\System32\PSAPI.DLL
+0x00007ffffd020000 - 0x00007ffffd029000 	C:\Windows\SYSTEM32\WSOCK32.dll
+0x00007ff8114a0000 - 0x00007ff81150c000 	C:\Windows\System32\WS2_32.dll
+0x00007ff80ad60000 - 0x00007ff80ad83000 	C:\Windows\SYSTEM32\WINMM.dll
+0x00007ff801970000 - 0x00007ff80197a000 	C:\Windows\SYSTEM32\VERSION.dll
+0x00007ff80ad30000 - 0x00007ff80ad5a000 	C:\Windows\SYSTEM32\winmmbase.dll
+0x00007ff80e050000 - 0x00007ff80e099000 	C:\Windows\System32\cfgmgr32.dll
+0x00007ff80d8d0000 - 0x00007ff80d8e1000 	C:\Windows\System32\kernel.appcore.dll
+0x00007fffe0520000 - 0x00007fffe0531000 	C:\Users\Public\frc2019\jdk\bin\verify.dll
+0x00007ff80c2f0000 - 0x00007ff80c4b9000 	C:\Windows\SYSTEM32\DBGHELP.DLL
+0x00007ffff5250000 - 0x00007ffff5279000 	C:\Windows\SYSTEM32\dbgcore.DLL
+0x00007fffdf4d0000 - 0x00007fffdf4f8000 	C:\Users\Public\frc2019\jdk\bin\java.dll
+0x00007fffe0500000 - 0x00007fffe0516000 	C:\Users\Public\frc2019\jdk\bin\zip.dll
+0x00007ffff9ed0000 - 0x00007ffff9eda000 	C:\Users\Public\frc2019\jdk\bin\jimage.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;C:\Users\Public\frc2019\jdk\bin;C:\Windows\SYSTEM32;C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.17134.765_none_fb42a1a930655896;C:\Users\Public\frc2019\jdk\bin\server
+
+VM Arguments:
+jvm_args: --add-modules=ALL-SYSTEM --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED -Declipse.application=org.eclipse.jdt.ls.core.id1 -Dosgi.bundles.defaultStartLevel=4 -Declipse.product=org.eclipse.jdt.ls.core.product -Xverify:none -Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication 
+java_command: C:\Users\Public\frc2019\vscode\data\extensions\redhat.java-0.35.0\server\plugins\org.eclipse.equinox.launcher_1.5.200.v20180922-1751.jar -configuration C:\Users\Public\frc2019\vscode\data\extensions\redhat.java-0.35.0\server\config_win -data c:\Users\Public\frc2019\vscode\data\user-data\User\workspaceStorage\1134f63d4c6ef5d1f1d9227178e85544\redhat.java\jdt_ws
+java_class_path (initial): C:\Users\Public\frc2019\vscode\data\extensions\redhat.java-0.35.0\server\plugins\org.eclipse.equinox.launcher_1.5.200.v20180922-1751.jar
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     bool BytecodeVerificationLocal                = false                                     {product} {command line}
+     bool BytecodeVerificationRemote               = false                                     {product} {command line}
+     intx CICompilerCount                          = 4                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 2                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 8                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 266338304                                 {product} {ergonomic}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 1073741824                                {product} {command line}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+    uintx NonNMethodCodeHeapSize                   = 5835340                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122911450                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122911450                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+     bool UseCompressedClassPointers               = true                                 {lp64_product} {ergonomic}
+     bool UseCompressedOops                        = true                                 {lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {command line}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+     bool UseStringDeduplication                   = true                                      {product} {command line}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags
+ #1: stderr all=off uptime,level,tags
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk-11.0.1
+PATH=C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk-11.0.1\bin;C:\Users\Public\frc2019\roborio\bin;C:\Users\Public\frc2019\frccode;C:\Users\piphi\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\piphi\AppData\Local\Programs\Python\Python37-32\;C:\Users\piphi\AppData\Local\Microsoft\WindowsApps;C:\Users\piphi\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Public\frc2019\roborio\bin;C:\Users\Public\frc2019\frccode;C:\Program Files\Java\jdk-11.0.1;C:\Users\piphi\Downloads\apache-maven-3.6.1-bin\apache-maven-3.6.1\bin;
+USERNAME=piphi
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 142 Stepping 11, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 10 , 64 bit Build 17134 (10.0.17134.753)
+
+CPU:total 8 (initial active 8) (4 cores per cpu, 2 threads per core) family 6 model 142 stepping 11, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, avx2, aes, clmul, erms, 3dnowpref, lzcnt, ht, tsc, tscinvbit, bmi1, bmi2, adx, fma
+
+Memory: 4k page, system-wide physical 16164M (4862M free)
+TotalPageFile size 20260M (AvailPageFile size 153M)
+current process WorkingSet (physical memory assigned to process): 9M, peak: 9M
+current process commit charge ("private bytes"): 59M, peak: 313M
+
+vm_info: OpenJDK 64-Bit Server VM (11.0.1+13) for windows-amd64 JRE (11.0.1+13), built on Oct  6 2018 13:18:13 by "mach5one" with MS VC++ 15.5 (VS2017)
+
+END.

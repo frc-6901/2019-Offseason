@@ -1,0 +1,16 @@
+[
+  {
+    "artifact": "frcJava (in project Offseason-master)",
+    "target": "roborio",
+    "debugfile": "frcJava_roborio.debugconfig",
+    "project": "Offseason-master",
+    "language": "java"
+  },
+  {
+    "artifact": "frcJava (in project Phantom2019OffSeason)",
+    "target": "roborio",
+    "debugfile": "frcJava_roborio.debugconfig",
+    "project": "Phantom2019OffSeason",
+    "language": "java"
+  }
+]
