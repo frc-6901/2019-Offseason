@@ -19,6 +19,10 @@ public class CargoIntake
         }
         return mCargoIntake;
     }
+    private CargoIntake()
+    {
+        
+    }
     public enum CargoIntakeState
     {
         BALLOUT,
@@ -30,11 +34,11 @@ public class CargoIntake
         double kCargoIntakePower =0;
         switch(mCargoIntakeState)
         {
-            case BALLOUT:
-            kCargoIntakePower = .35;
-            break;
             case BALLIN:
-            kCargoIntakePower = -.35;
+            kCargoIntakePower = .2;
+            break;
+            case BALLOUT:
+            kCargoIntakePower = -.7;
             break;
             case NEUTRAL:
             kCargoIntakePower =0;

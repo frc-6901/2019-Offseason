@@ -32,13 +32,14 @@ public class Wrist extends Subsystem
         mWristMotor.configMotionCruiseVelocity(Constants.kWristVelocity);
 
     }
-    public void updateWristMotionMagic(double p, double i,double d,double f, int accel)
+    public void updateWristMotionMagic(double p, double i,double d,double f, int accel, int velocity)
     {
         mWristMotor.config_kP(0, p);
         mWristMotor.config_kI(0, i);
         mWristMotor.config_kD(0, d);
         mWristMotor.config_kF(0, f);
         mWristMotor.configMotionAcceleration(accel);
+        mWristMotor.configMotionCruiseVelocity(velocity);
     }
     public synchronized static Wrist getInstance()
     {
@@ -76,7 +77,7 @@ public class Wrist extends Subsystem
             case WRISTDOWN:
                 return !mWristLimitSwitch.get();
             default:
-                return (Math.abs(mWristMotor.getSelectedSensorPosition(0)-aimedState.encoderPosition)<=100);
+                return (Math.abs(mWristMotor.getSelectedSensorPosition(0)-aimedState.encoderPosition)<25);
 
         }
     }
@@ -118,12 +119,13 @@ public class Wrist extends Subsystem
     {
 
     }
-    private void maxWristVelocity()
+    public int maxWristVelocity()
     {
         if(mWristMotor.getSelectedSensorVelocity()>maxWristVelocity)
         {
             maxWristVelocity = mWristMotor.getSelectedSensorVelocity();
         }
+        return maxWristVelocity;
         
     }
     public void runWrist()
@@ -144,7 +146,7 @@ public class Wrist extends Subsystem
             case WRISTDOWN:
             if(!positionRecognizer(WristPosition.WRISTDOWN))
             {
-                mWristMotor.set(ControlMode.PercentOutput,-.5);
+                mWristMotor.set(ControlMode.PercentOutput,-.1);
             }
             else
             {
@@ -157,6 +159,7 @@ public class Wrist extends Subsystem
             if(!positionRecognizer(aimedPosition))
             {
                 setPosition(aimedPosition.encoderPosition);
+                currentPosition = aimedPosition;
             }
             else
             {

@@ -67,8 +67,8 @@ public class Superstructure
                 if(LiftCurrentPosition==LiftPosition.RESET)
                 {
                     stage++;
-                }
-                break;
+                }      
+                break;    
                 case 1:
                 mWrist.setState(WristPosition.WRISTDOWN);
                 if(WristCurrentPosition == WristPosition.WRISTDOWN)
@@ -77,7 +77,7 @@ public class Superstructure
                 }
                 break;
                 case 2:
-                currentPosition = SuperstructurePosition.RESET;
+                currentPosition = aimedPosition;
                 break;
 
             }
@@ -153,16 +153,16 @@ public class Superstructure
                 mLift.setState(LiftPosition.CARGO3);
                 if(LiftCurrentPosition==LiftPosition.CARGO3)
                 {
-                    stage++;
+                    stage+=2;
                 }
                 break;
-                case 2:
-                mWrist.setState(WristPosition.WRISTTHIRD);
-                if(WristCurrentPosition == WristPosition.WRISTTHIRD)
-                {
-                    stage++;
-                }
-                break;
+                // case 2:
+                // mWrist.setState(WristPosition.WRISTTHIRD);
+                // if(WristCurrentPosition == WristPosition.WRISTTHIRD)
+                // {
+                //     stage++;
+                // }
+                // break;
                 case 3:
                 currentPosition = SuperstructurePosition.CARGO3;
                 break;
@@ -179,13 +179,6 @@ public class Superstructure
                 }
                 break;
                 case 1:
-                mLift.setState(LiftPosition.PANEL1);
-                if(LiftCurrentPosition==LiftPosition.PANEL1)
-                {
-                    stage++;
-                }
-                break;
-                case 2:
                 currentPosition = SuperstructurePosition.PANEL1;
                 break;
             }

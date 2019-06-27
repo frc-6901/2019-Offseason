@@ -21,7 +21,7 @@ public class Lift extends Subsystem
 
     private final TalonSRX mLiftMaster;
     private final VictorSPX mLiftSlave;
-    private final DigitalInput mLiftLimitSwitch = new DigitalInput(Constants.kLimitSwitchWrist);
+    private final DigitalInput mLiftLimitSwitch = new DigitalInput(Constants.kLimitSwitchLift);
     private static Lift mInstance = null;
     //private OI mControllers = OI.getInstance();
     private double percentOutput = 0;
@@ -54,7 +54,7 @@ public class Lift extends Subsystem
         mLiftMaster.configMotionCruiseVelocity(Constants.kLiftVelocity);
         mLiftSlave.follow(mLiftMaster);
     }
-    public void setMotionMagicValues(double p, double i, double d, double f,int acceleration)
+    public void setMotionMagicValues(double p, double i, double d, double f,int acceleration,int velocity)
     {
         //double pValue = LiftP.getDouble(0);
         mLiftMaster.config_kP(0,p);
@@ -62,7 +62,7 @@ public class Lift extends Subsystem
         mLiftMaster.config_kD(0,d);
         mLiftMaster.config_kF(0,f);
         mLiftMaster.configMotionAcceleration(acceleration);
-        mLiftMaster.configMotionCruiseVelocity(Constants.kLiftVelocity);
+        mLiftMaster.configMotionCruiseVelocity(velocity);
     }
     public enum LiftPosition
     {
@@ -110,13 +110,13 @@ public class Lift extends Subsystem
         
     }
 
-    public void maxSpeed()
+    public int maxSpeed()
     {
-        if(mLiftMaster.getSelectedSensorVelocity()>maxSpeed)
+        if(Math.abs(mLiftMaster.getSelectedSensorVelocity(0))>maxSpeed)
         {
-            maxSpeed = mLiftMaster.getSelectedSensorVelocity();
+            maxSpeed = mLiftMaster.getSelectedSensorVelocity(0);
         }
-        //return maxSpeed();
+        return maxSpeed;
 
 
     }
@@ -135,16 +135,13 @@ public class Lift extends Subsystem
             }
             break;
             case RESET:
-            if(!(positionChecker(aimedPosition))&& getEncoderValue()>=600) 
+            if(!(positionChecker(aimedPosition))) 
             {
                 mLiftMaster.set(ControlMode.PercentOutput,-.1);
                 
             }
-            else if(!(positionChecker(aimedPosition))&& getEncoderValue()<600)
-            {
-                mLiftMaster.set(ControlMode.PercentOutput,-.1);
-                
-            }
+                         
+            
             else
             {
                 mLiftMaster.set(ControlMode.PercentOutput,0);

@@ -18,7 +18,7 @@ public class PpIntake
         }
         return mPpIntake;
     }
-    private enum PpIntakeState
+    public enum PpIntakeState
     {
         PANELIN,
         PANELOUT,

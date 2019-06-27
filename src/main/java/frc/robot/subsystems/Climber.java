@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
+import jdk.jfr.Enabled;
 
 public class Climber
 {
@@ -17,6 +18,7 @@ public class Climber
     private ClimberState mClimberState = ClimberState.DISABLED;
     private int stage =0;
     private DigitalInput mClimberLimit;
+    private double climbTime;
 
 
     public static Climber getInstance()
@@ -59,55 +61,42 @@ public class Climber
 
     private enum ClimberState
     {
-        ENABLED,
         DISABLED,
-        COMPLETED
+        MANUALVAC
     }
     public void startClimb()
     {
-        mClimberState = ClimberState.ENABLED;
+        stage =0;
+        
+        climbTime = Timer.getFPGATimestamp();
+
     }
 
     public void updateClimber()
     {
         double climbTime = 0;
-        if (mClimberState==ClimberState.ENABLED)
+        switch(mClimberState)
         {
-            switch(stage)
-            {
-                case 0:
-                mClimberMaster.set(ControlMode.MotionMagic, Constants.kClimbHeight);
-                if(mClimberMaster.getSelectedSensorPosition(0)==Constants.kClimbHeight)
-                {
-                    climbTime = Timer.getFPGATimestamp();
-                    stage++;
-                }
-                break;
-                case 1:
-                mVacuum.set(ControlMode.PercentOutput,.85);
-                if(climbTime + Constants.kClimbSuccDurationSeconds <= Timer.getFPGATimestamp())
-                {
-                    stage++;
-                }
-                break;
-                case 2:
-                mVacuum.set(ControlMode.PercentOutput,Constants.kVacuumPowerSucc);
-                mClimberMaster.set(ControlMode.PercentOutput,-.2);
-                if(!mClimberLimit.get())
-                {
-                    stage++;
-                }
-                break;
-                case 3:
-                mVacuum.set(ControlMode.PercentOutput,Constants.kVacuumPowerSucc);
-                mClimberMaster.set(ControlMode.PercentOutput,0);
-                mClimberState = ClimberState.COMPLETED;
-                break;
-
-                
-
-            }
+            case MANUALVAC:
+            mVacuum.set(ControlMode.PercentOutput,.3);
+            break;
+            case DISABLED:
+            mVacuum.set(ControlMode.PercentOutput,0);
+            break;
         }
     }
+    public void manualMove(double forwardSpeed)
+    {
+        mClimberMaster.set(ControlMode.PercentOutput,forwardSpeed);
+    }
+    public void manualSucc()
+    {
+        mClimberState = ClimberState.MANUALVAC;
+    }
+    public void noSucc()
+    {
+        mClimberState = ClimberState.DISABLED;
+    }
+    
 
 }
